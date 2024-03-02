@@ -12,8 +12,11 @@ class EditViewController: BaseViewController {
     @IBOutlet weak var nameLb: UITextField!
     @IBOutlet weak var phoneLb: UITextField!
     var contact: Contact?
-    var hvc = HomeViewController()
+    var viewModal = EditViewModal()
+    
+    
     override func viewDidLoad() {
+        bindViewModal()
         super.viewDidLoad()
         if let contact = contact {
             nameLb.text = contact.name
@@ -21,6 +24,11 @@ class EditViewController: BaseViewController {
         }
         
     }
+    
+    func bindViewModal() {
+        viewModal.controller = self
+    }
+    
     @IBAction func UpdateButton(_ sender: Any) {
         guard let newName = nameLb.text, let newPhone = phoneLb.text else {
             return
@@ -29,12 +37,11 @@ class EditViewController: BaseViewController {
         if var contact = contact {
             contact.name = newName
             contact.phone = newPhone
-            hvc.apiContactUpdate(contact: contact)
+            viewModal.apiPostUpdate(contact: contact) { [weak self] success in
+                guard success else { return }
+                self?.dismiss(animated: true, completion: nil)
+            }
         }
-        
-        dismiss(animated: true, completion: {
-            self.hvc.apiContactList()
-        })
     }
 }
 

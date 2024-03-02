@@ -10,7 +10,7 @@ import UIKit
 
 class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
-    var items : Array<Contact> = Array()
+    var viewModal = HomeViewModal()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,73 +21,20 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
         initView()
     }
     
-    func refreshTableView(contact: [Contact]){
-        self.items = contact
-        self.tableView.reloadData()
-    }
     
-    func apiContactList(){
-        showProgres()
-        AFHttp.get(url: AFHttp.API_POST_LIST, params: AFHttp.paramsEmpty(), handler: {respons in
-            self.hideProgres()
-            switch respons.result{
-            case .success:
-                let contact = try! JSONDecoder().decode([Contact].self, from: respons.data!)
-                self.refreshTableView(contact: contact)
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
-    func apiContactDelete(contact:Contact){
-        showProgres()
-        AFHttp.del(url: AFHttp.API_POST_DELETE + contact.id!, params: AFHttp.paramsEmpty(), handler: {respons in
-            self.hideProgres()
-            switch respons.result{
-            case .success:
-                print(respons.result)
-                self.apiContactList()
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
-    func apiContactCreate(name:String,phone:String){
-        showProgres()
-        AFHttp.post(url: AFHttp.API_POST_CREATE, params: AFHttp.paramsPostCreate(contact: Contact(name: name,phone: phone)), handler: {respons in
-            self.hideProgres()
-            switch respons.result{
-            case .success:
-                print(respons.result)
-                self.apiContactList()
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
-    func apiContactUpdate(contact: Contact){
-        showProgres()
-        AFHttp.put(url: AFHttp.API_POST_UPDATE + contact.id!, params: AFHttp.paramsPostUpdate(contact: contact), handler: {respons in
-            self.hideProgres()
-            switch respons.result{
-            case .success:
-                print(respons.result)
-                self.apiContactList()
-            case let .failure(error):
-                print(error)
-            }
-        })
-        
-    }
     
     // Mark: - Method
     func initView(){
         initNavigation()
-        
-        apiContactList()
+        bindViewModal()
+        viewModal.apiPostList()
+    }
+    
+    func bindViewModal(){
+        viewModal.controller = self
+        viewModal.items.bind(to: self){ strongSelf,_ in
+            strongSelf.tableView.reloadData()
+        }
     }
     
     func initNavigation(){
@@ -115,7 +62,7 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     // Mark: - Actions
     
     @objc func leftTapped(){
-        apiContactList()
+        viewModal.apiPostList()
     }
     @objc func rightTapped(){
         callAddViewController()
@@ -124,11 +71,11 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     // Mark: - Table View
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return viewModal.items.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.row]
+        let item = viewModal.items.value[indexPath.row]
         
         let cell = (Bundle.main.loadNibNamed("ContactTableViewCell", owner: self,options: nil)?.first as? ContactTableViewCell)!
         cell.nameLabel.text = item.name
@@ -138,17 +85,21 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: [makeCompliteContextualAction(forRowAt:indexPath,contact: items[indexPath.row])])
+        return UISwipeActionsConfiguration(actions: [makeCompliteContextualAction(forRowAt:indexPath,contact: viewModal.items.value[indexPath.row])])
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return UISwipeActionsConfiguration(actions: [makeDeleteContextualAction(forRowAt:indexPath,contact: items[indexPath.row])])
+        return UISwipeActionsConfiguration(actions: [makeDeleteContextualAction(forRowAt:indexPath,contact: viewModal.items.value[indexPath.row])])
     }
     
     private func makeDeleteContextualAction(forRowAt indexpath: IndexPath, contact:Contact)->UIContextualAction{
         return UIContextualAction(style: .destructive, title: "Delete") { (action, swipeButtonView,complition) in
             complition(true)
-            self.apiContactDelete(contact: contact)
+            self.viewModal.apiPostDelete(contact: contact, handler: { isDeleted in
+                if isDeleted{
+                    self.viewModal.apiPostList()
+                }
+            })
         }
     }
     
@@ -161,7 +112,7 @@ class HomeViewController: BaseViewController,UITableViewDelegate,UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        apiContactList()
+        viewModal.apiPostList()
     }
     
 }

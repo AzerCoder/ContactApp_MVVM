@@ -13,6 +13,10 @@
 		821BDF872B8A7574006B7E6A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 821BDF862B8A7574006B7E6A /* Alamofire */; };
 		821BDF8A2B8A75E9006B7E6A /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 821BDF892B8A75E9006B7E6A /* JGProgressHUD */; };
 		8277B68E2B8B3CB700C8FE16 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277B68D2B8B3CB700C8FE16 /* Network.swift */; };
+		829BAF9B2B92E23F00454009 /* Bond in Frameworks */ = {isa = PBXBuildFile; productRef = 829BAF9A2B92E23F00454009 /* Bond */; };
+		829BAFA02B92E2CC00454009 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829BAF9F2B92E2CC00454009 /* HomeViewModel.swift */; };
+		829BAFA22B92E2D600454009 /* AddViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829BAFA12B92E2D600454009 /* AddViewModel.swift */; };
+		829BAFA42B92E2E600454009 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829BAFA32B92E2E600454009 /* EditViewModel.swift */; };
 		82E6AEB92B8A396D00F547A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E6AEB82B8A396D00F547A1 /* AppDelegate.swift */; };
 		82E6AEBB2B8A396D00F547A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E6AEBA2B8A396D00F547A1 /* SceneDelegate.swift */; };
 		82E6AEC02B8A396D00F547A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82E6AEBE2B8A396D00F547A1 /* Main.storyboard */; };
@@ -32,6 +36,9 @@
 		821BDF812B8A6356006B7E6A /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		821BDF822B8A6356006B7E6A /* ContactTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		8277B68D2B8B3CB700C8FE16 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		829BAF9F2B92E2CC00454009 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		829BAFA12B92E2D600454009 /* AddViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewModel.swift; sourceTree = "<group>"; };
+		829BAFA32B92E2E600454009 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		82E6AEB52B8A396D00F547A1 /* ContactApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ContactApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E6AEB82B8A396D00F547A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82E6AEBA2B8A396D00F547A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				821BDF8A2B8A75E9006B7E6A /* JGProgressHUD in Frameworks */,
+				829BAF9B2B92E23F00454009 /* Bond in Frameworks */,
 				821BDF872B8A7574006B7E6A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +75,36 @@
 				8277B68D2B8B3CB700C8FE16 /* Network.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		829BAF9C2B92E28900454009 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				82E6AECE2B8A39F400F547A1 /* HomeViewController.swift */,
+				82E6AECF2B8A39F400F547A1 /* HomeViewController.xib */,
+				829BAF9F2B92E2CC00454009 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		829BAF9D2B92E28F00454009 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				82E6AED62B8A3A5800F547A1 /* AddViewController.swift */,
+				82E6AED72B8A3A5800F547A1 /* AddViewController.xib */,
+				829BAFA12B92E2D600454009 /* AddViewModel.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		829BAF9E2B92E29400454009 /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				82E6AED22B8A3A3000F547A1 /* EditViewController.swift */,
+				82E6AED32B8A3A3000F547A1 /* EditViewController.xib */,
+				829BAFA32B92E2E600454009 /* EditViewModel.swift */,
+			);
+			path = Edit;
 			sourceTree = "<group>";
 		};
 		82E6AEAC2B8A396D00F547A1 = {
@@ -114,12 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				82E6AEDA2B8A3A6F00F547A1 /* BaseViewController.swift */,
-				82E6AECE2B8A39F400F547A1 /* HomeViewController.swift */,
-				82E6AECF2B8A39F400F547A1 /* HomeViewController.xib */,
-				82E6AED22B8A3A3000F547A1 /* EditViewController.swift */,
-				82E6AED32B8A3A3000F547A1 /* EditViewController.xib */,
-				82E6AED62B8A3A5800F547A1 /* AddViewController.swift */,
-				82E6AED72B8A3A5800F547A1 /* AddViewController.xib */,
+				829BAF9C2B92E28900454009 /* Home */,
+				829BAF9D2B92E28F00454009 /* Add */,
+				829BAF9E2B92E29400454009 /* Edit */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -160,6 +195,7 @@
 			packageProductDependencies = (
 				821BDF862B8A7574006B7E6A /* Alamofire */,
 				821BDF892B8A75E9006B7E6A /* JGProgressHUD */,
+				829BAF9A2B92E23F00454009 /* Bond */,
 			);
 			productName = ContactApp;
 			productReference = 82E6AEB52B8A396D00F547A1 /* ContactApp.app */;
@@ -192,6 +228,7 @@
 			packageReferences = (
 				821BDF852B8A7574006B7E6A /* XCRemoteSwiftPackageReference "Alamofire" */,
 				821BDF882B8A75E9006B7E6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				829BAF992B92E23F00454009 /* XCRemoteSwiftPackageReference "Bond" */,
 			);
 			productRefGroup = 82E6AEB62B8A396D00F547A1 /* Products */;
 			projectDirPath = "";
@@ -224,9 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				829BAFA42B92E2E600454009 /* EditViewModel.swift in Sources */,
+				829BAFA22B92E2D600454009 /* AddViewModel.swift in Sources */,
 				82E6AED82B8A3A5800F547A1 /* AddViewController.swift in Sources */,
 				82E6AED42B8A3A3000F547A1 /* EditViewController.swift in Sources */,
 				82E6AEB92B8A396D00F547A1 /* AppDelegate.swift in Sources */,
+				829BAFA02B92E2CC00454009 /* HomeViewModel.swift in Sources */,
 				82E6AEBB2B8A396D00F547A1 /* SceneDelegate.swift in Sources */,
 				821BDF832B8A6356006B7E6A /* ContactTableViewCell.swift in Sources */,
 				8277B68E2B8B3CB700C8FE16 /* Network.swift in Sources */,
@@ -473,6 +513,14 @@
 				minimumVersion = 2.2.0;
 			};
 		};
+		829BAF992B92E23F00454009 /* XCRemoteSwiftPackageReference "Bond" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DeclarativeHub/Bond";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.8.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -485,6 +533,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 821BDF882B8A75E9006B7E6A /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
 			productName = JGProgressHUD;
+		};
+		829BAF9A2B92E23F00454009 /* Bond */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 829BAF992B92E23F00454009 /* XCRemoteSwiftPackageReference "Bond" */;
+			productName = Bond;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
